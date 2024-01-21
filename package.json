@@ -18,5 +18,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.3"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,html,jsx"
   }
 }
