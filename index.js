@@ -1,4 +1,3 @@
-// index.js
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -14,19 +13,18 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
-
 // Static Files (uncomment if you have static files like images, CSS, client-side JS)
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/places', require('./controllers/places'));
 
-app.get('/', (req, res) => {
-    res.render('home'); // Ensure you have a home.jsx in your views directory
-});
+app.use('/', (req, res) => {
+    res.render('home'); 
+});  // This line was missing
 
-app.get('*', (req, res) => {
-    res.render('error404'); // Ensure you have an error404.jsx in your views directory
+app.use('*', (req, res) => {
+    res.render('error404'); 
 });
 
 // Start the server
