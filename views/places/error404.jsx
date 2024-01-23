@@ -1,7 +1,5 @@
-// error404.jsx
 const React = require('react');
-const Def = require('./default'); // Adjust the path as needed
-
+const Def = require('./default'); 
 function Error404() {
     return (
         <Def>
