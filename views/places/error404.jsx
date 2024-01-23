@@ -1,18 +1,15 @@
-const React = require('react')
-const Def = require('./default')
+const React = require('react');
+const Def = require('./default'); // Adjust the path as needed
 
-function error404 () {
+function Error404() {
     return (
-      <Def>
-          <main>
-              <h1>404: PAGE NOT FOUND</h1>
-              <p>Oops, sorry, we can't find this page!</p>
-          </main>
-      </Def>
-    )
-  }
-  
+        <Def>
+            <main>
+                <h1>404: Page Not Found</h1>
+                <p>Sorry, the page you are looking for does not exist.</p>
+            </main>
+        </Def>
+    );
+}
 
-module.exports = error404
-
-
+module.exports = Error404;

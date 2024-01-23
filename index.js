@@ -1,24 +1,32 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
+// index.js
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
+const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
+// Setting up the JSX view engine with express-react-views
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
 
-app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine())
+// Static Files (uncomment if you have static files like images, CSS, client-side JS)
+// app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/places', require('./controllers/places'))
+// Routes
+app.use('/places', require('./controllers/places'));
 
 app.get('/', (req, res) => {
-    res.render('home')
-    //res.send('Hello world!')
-})
+    res.render('home'); // Ensure you have a home.jsx in your views directory
+});
 
 app.get('*', (req, res) => {
-    res.render('error404')
-})
+    res.render('error404'); // Ensure you have an error404.jsx in your views directory
+});
 
-app.listen(process.env.PORT || 3005)
-
+// Start the server
+const PORT = process.env.PORT || 3005;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
