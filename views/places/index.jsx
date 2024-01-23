@@ -1,22 +1,24 @@
-const React = require('react');
-const Def = require('../home'); 
-function index({ places }) {
-    let placesFormatted = places.map((places) => {
-        return (
-            <div key={places.name}> {/* Use a unique key, like name or id */}
-                <h2>{places.name}</h2>
-                <img src={places.pic} alt={places.name}/>
-            </div>
-        );
-    });
+const React = require('react')
+const Def = require('../home')
+
+function index (data) {
+    let placesFormatted = data.places.map((place, index) => {
+      // Using place.id as key if available, otherwise using index
+      return (
+        <div key={place.id || index}>
+          <h2>{place.name}</h2>
+          <img src={place.pic} alt={place.name}/>
+        </div>
+      )
+    })
     return (
-        <Def>
-            <main>
-                <h1>PLACES INDEX PAGE</h1>
-                {placesFormatted}
-            </main>
-        </Def>
-    );
+      <Def>
+          <main>
+              <h1>PLACES INDEX PAGE</h1>
+              {placesFormatted}
+          </main>
+      </Def>
+  )
 }
 
-module.exports = index;
+module.exports = index
