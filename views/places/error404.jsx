@@ -1,3 +1,4 @@
+// error404.jsx
 const React = require('react');
 const Def = require('./default'); // Adjust the path as needed
 
