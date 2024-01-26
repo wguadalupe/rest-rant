@@ -6,11 +6,15 @@ router.get('/new', (req, res) => {
     res.render('places/new');
 });
 
+// Route for POST '/places' (assuming this is for creating a new place)
+router.post('/', (req, res) => {
+    console.log(req.body)
+    res.send('POST /places')
+});
+
 // Route for '/places/:id' (specific place details)
 router.get('/:id', (req, res) => {
-    // Placeholder for fetching a specific place by its id
     const id = req.params.id;
-    // Placeholder object
     let place = {
         id: id,
         name: 'Sample Place',
@@ -20,10 +24,8 @@ router.get('/:id', (req, res) => {
         pic: 'http://placekitten.com/250/250'
     };
 
-    // Render the specific place details page
-    res.render('places/show', { place }); // Corrected here
+    res.render('places/show', { place });
 });
-
 
 // Route for '/' (list of places)
 router.get('/', (req, res) => {
