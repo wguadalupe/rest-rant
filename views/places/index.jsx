@@ -1,24 +1,21 @@
 const React = require('react');
 const Def = require('./default');
 
-function new_form () {
-    return (
-        <Def>
-          <main>
-            <h1>Add a New Place</h1>
-          </main>
-        </Def>
-    )
-}
-
-module.exports = new_form
-
-
 function Index({ places = [] }) {
     const placesFormatted = places.map((place, index) => (
-        <div key={index}>
-          <h2>{place.name}</h2>
-          <img src={place.pic} alt={`Image of ${place.name}`}/>
+        <div key={place.id || index} className="col-sm-6">
+          <h2>
+            <a href={`/places/${place.id}`} >
+              {place.name}
+            </a>
+          </h2>
+          <p className="text-center">
+            {place.cuisines}
+          </p>
+          <img src={place.pic} alt={`Image of ${place.name}`} />
+          <p className="text-center">
+            Located in {place.city}, {place.state}
+          </p>
         </div>
     ));
 
@@ -26,13 +23,12 @@ function Index({ places = [] }) {
         <Def>
             <main>
                 <h1>PLACES INDEX PAGE</h1>
-                {placesFormatted}
+                <div className="row">
+                  {placesFormatted}
+                </div>
             </main>
         </Def>
     );
 }
 
 module.exports = Index;
-
-
-

@@ -28,22 +28,35 @@ router.post('/', (req, res) => {
     res.redirect('/places')
   })
   
+  router.get('/:id', (req, res) => {
+    let id = Number(req.params.id)
+    if (isNaN(id)) {
+      res.render('error404')
+    }
+    else if (!places[id]) {
+      res.render('error404')
+    }
+    else {
+      res.render('places/show', { place: places[id] })
+
+    }
+  })
   
   
 
-// Route for '/:id' (specific place details)
-router.get('/:id', (req, res) => {
-    const id = req.params.id;
-    let place = places.find(p => p.id === id) || { // Assuming 'places' is an array of objects
-        id: id,
-        name: 'Sample Place',
-        city: 'Sample City',
-        state: 'Sample State',
-        cuisines: 'Sample Cuisine',
-        pic: 'http://placekitten.com/250/250'
-    };
+// // Route for '/:id' (specific place details)
+// router.get('/:id', (req, res) => {
+//     const id = req.params.id;
+//     let place = places.find(p => p.id === id) || { // Assuming 'places' is an array of objects
+//         id: id,
+//         name: 'Sample Place',
+//         city: 'Sample City',
+//         state: 'Sample State',
+//         cuisines: 'Sample Cuisine',
+//         pic: 'http://placekitten.com/250/250'
+//     };
 
-    res.render('places/show', { place });
-});
+//     res.render('places/show', { place });
+
 
 module.exports = router;

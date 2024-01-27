@@ -1,5 +1,5 @@
 const React = require('react');
-const Def = require('../default'); // Updated path
+const Def = require('./default'); 
 
 function Error404() {
     return (
