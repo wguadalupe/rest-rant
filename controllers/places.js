@@ -1,21 +1,40 @@
 const express = require('express');
 const router = express.Router();
+const places = require('../models/places');
 
-// Route for '/places/new'
+// Route for '/' (list of places)
+router.get('/', (req, res) => {
+    res.render('places/index', { places });
+});
+
+// Route for '/new'
 router.get('/new', (req, res) => {
     res.render('places/new');
 });
 
-// Route for POST '/places' (assuming this is for creating a new place)
 router.post('/', (req, res) => {
     console.log(req.body)
-    res.send('POST /places')
-});
+    if (!req.body.pic) {
+      // Default image if one is not provided
+      req.body.pic = 'http://placekitten.com/400/400'
+    }
+    if (!req.body.city) {
+      req.body.city = 'Anytown'
+    }
+    if (!req.body.state) {
+      req.body.state = 'USA'
+    }
+    places.push(req.body)
+    res.redirect('/places')
+  })
+  
+  
+  
 
-// Route for '/places/:id' (specific place details)
+// Route for '/:id' (specific place details)
 router.get('/:id', (req, res) => {
     const id = req.params.id;
-    let place = {
+    let place = places.find(p => p.id === id) || { // Assuming 'places' is an array of objects
         id: id,
         name: 'Sample Place',
         city: 'Sample City',
@@ -25,25 +44,6 @@ router.get('/:id', (req, res) => {
     };
 
     res.render('places/show', { place });
-});
-
-// Route for '/' (list of places)
-router.get('/', (req, res) => {
-    let places = [{
-        name: 'H-Thai-ML',
-        city: 'Seattle',
-        state: 'WA',
-        cuisines: 'Thai, Pan-Asian',
-        pic: 'http://placekitten.com/250/250'
-    }, {
-        name: 'Coding Cat Cafe',
-        city: 'Phoenix',
-        state: 'AZ',
-        cuisines: 'Coffee, Bakery',
-        pic: 'http://placekitten.com/250/250'
-    }];
-    
-    res.render('places/index', { places });
 });
 
 module.exports = router;

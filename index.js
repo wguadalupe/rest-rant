@@ -9,10 +9,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // Setting up the JSX view engine with express-react-views
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 // Static Files (uncomment if you have static files like images, CSS, client-side JS)
 // app.use(express.static(path.join(__dirname, 'public')));
