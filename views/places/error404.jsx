@@ -1,5 +1,5 @@
 const React = require('react');
-const Def = require('./default'); 
+const Def = require('../places/'); 
 
 function Error404() {
     return (
