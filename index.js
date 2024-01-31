@@ -2,6 +2,17 @@
 require('dotenv').config()
 const express = require('express')
 const methodOverride = require('method-override')
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yourDatabaseName', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+mongoose.connection.on('error', (err) => {
+    console.error(err);
+    console.log('MongoDB connection error. Please make sure MongoDB is running.');
+    process.exit();
+});
+
 
 
 
@@ -19,7 +30,7 @@ app.use(methodOverride('_method'))
 
 
 // Static Files (uncomment if you have static files like images, CSS, client-side JS)
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/places', require('./controllers/places'));
