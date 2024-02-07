@@ -1,10 +1,5 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
+const Place = require('./places'); 
 
-// Import the 'Place' model from the 'places.js' file
-const Place = require('./places'); // This should match the exported name from places.js
-
-const db = {
-  Place: Place,  
-};
-
-module.exports = db;
+module.exports = { Place }; // Export the 'Place' model

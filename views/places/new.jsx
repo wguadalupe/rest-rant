@@ -1,7 +1,7 @@
 const React = require('react')
 const Def = require('./default')
 
-function new_form () {
+function new_form (data) {
     return (
         <Def>
           <main>
@@ -28,10 +28,15 @@ function new_form () {
                     <input className="form-control" id="cuisines" name="cuisines" required />
                 </div>
                 <input className="btn btn-primary" type="submit" value="Add Place" />
-                <div className="form-group">
-                    <label htmlFor="founded">Founded Year</label> {/* Corrected line */}
-                    <input className="form-control" id="founded" name="founded" />
-                </div>
+                <div className="form-group col-sm-4">
+                    <label htmlFor="founded">Founded Year</label>
+                    <input 
+                        type="number" 
+                        className="form-control" 
+                        id="founded" 
+                        name="founded" 
+                        value={new Date().getFullYear()} />
+                    </div>
             </form>
           </main>
         </Def>
