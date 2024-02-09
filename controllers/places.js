@@ -65,11 +65,11 @@ router.post('/:id/comment', (req, res) => {
         throw new Error('Place not found');
       }
       return db.Comment.create(req.body).then(comment => {
-        place.comments.push(comment._id); // Assuming your schema uses _id to reference comments
-        return place.save();
+        place.comments.push(comment._id); 
+        return place.save().then(() => place); 
       });
     })
-    .then(() => res.redirect(`/places/${placeId}`))
+    .then(place => res.redirect(`/places/${place._id}`)) 
     .catch(err => {
       console.error('Error adding comment:', err);
       res.status(404).render('places/error404');
@@ -78,13 +78,28 @@ router.post('/:id/comment', (req, res) => {
 
 // Update a place
 router.put('/:id', (req, res) => {
-  res.send('Update place functionality not yet implemented');
+  db.Place.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(() => {
+      res.redirect(`/places/${req.params.id}`);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(404).render('places/error404');
+    });
 });
 
 // Delete a place
 router.delete('/:id', (req, res) => {
-  res.send('Delete place functionality not yet implemented');
+  db.Place.findByIdAndDelete(req.params.id)
+    .then(() => {
+      res.redirect('/places');
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(404).render('places/error404');
+    });
 });
+
 
 // Display form to edit a place
 router.get('/:id/edit', (req, res) => {

@@ -1,8 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const Def = require('./default');
-
-const CommentForm = require('./CommentForm'); // Import the CommentForm component
+const CommentForm = require('./comments'); // Corrected import statement
 
 function Show({ place, message = '' }) {
   let messageComponent = '';
@@ -20,14 +19,14 @@ function Show({ place, message = '' }) {
       No comments yet!
     </h3>
   );
-  if (place.comments && place.comments.length) { // Check if comments exist and have length
+  if (place.comments && place.comments.length) { // Ensure comments exist and have length before mapping
     comments = place.comments.map(c => {
       return (
-        <div className="border" key={c._id}> {/* Add a key for each comment for React's list rendering */}
+        <div className="border" key={c._id}> {/* Ensure each comment has a unique key */}
           <h2 className="rant">{c.rant ? 'Rant! 😡' : 'Rave! 😺'}</h2>
           <h4>{c.content}</h4>
           <h3>
-            <strong>- {c.author}</strong>
+            <strong>- {c.author}</strong> 
           </h3>
           <h4>Rating: {c.stars}</h4>
         </div>
@@ -43,10 +42,10 @@ function Show({ place, message = '' }) {
         <div className="row">
           <div className="col-sm-6">
             <img 
-              src={place.imageUrl || 'path/to/default-image.png'} 
+              src={place.pic || '/path/to/default-image.png'} 
               alt={place.name} 
               style={{ maxWidth: "100%" }}
-              onError={(e) => e.target.src = 'path/to/default-image.png'}
+              onError={(e) => e.target.src = '/path/to/default-image.png'}
             />
             <h2>Location & Information</h2>
             <p>Located in {place.city}, {place.state}</p>
@@ -57,8 +56,7 @@ function Show({ place, message = '' }) {
         <hr />
         <h2>Comments</h2>
         {comments}
-        {/* Include the CommentForm here, passing the place as a prop */}
-        <CommentForm place={place} />
+        <CommentForm place={place} /> {/* Ensure this is correctly placed */}
         <hr />
         <a href={`/places/${place._id}/edit`} className="btn btn-warning">Edit</a>
         <form method="POST" action={`/places/${place._id}?_method=DELETE`} style={{marginTop: "1rem"}}>

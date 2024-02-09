@@ -4,7 +4,7 @@ const Def = require('./default');
 function CommentForm({ place }) {
     return (
         <Def>
-            <form action={`/places/${place._id}/comments`} method="POST" className="mt-4"> 
+            <form action={`/places/${place._id}/comment`} method="POST" className="mt-4"> 
                 <div className="mb-3">
                     <label htmlFor="author" className="form-label">Author</label>
                     <input
