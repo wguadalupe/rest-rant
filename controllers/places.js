@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const db = require('../models');
+const seedPlaces = require('../seeders/seed-places')
 
 // List all places
 router.get('/', (req, res) => {
@@ -12,6 +13,16 @@ router.get('/', (req, res) => {
       res.status(404).render('places/error404');
     });
 });
+
+router.get('/seed', (req, res) => {
+  seedPlaces()
+    .then(() => res.send('Database successfully seeded!'))
+    .catch(err => {
+      console.error('Database seeding failed:', err);
+      res.status(500).send('Database seeding failed. Check the server logs for more details.');
+    });
+});
+
 
 // Create a new place
 router.post('/', (req, res) => {
